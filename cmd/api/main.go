@@ -6,6 +6,7 @@ import (
 
 	"go-practice/internal/config"
 	"go-practice/internal/database"
+	"github.com/labstack/echo/v4"
 )
 
 func main() {
@@ -23,4 +24,12 @@ func main() {
 	}
 
 	fmt.Println(db)
+
+	// initialize echo
+	e := echo.New()
+	e.GET("/", func(c echo.Context) error {
+		return c.String(200, "Hello, World!")
+	})
+
+	e.Logger.Fatal(e.Start(":1323"))
 }

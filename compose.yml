@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     env_file: .env
     ports:
-      - 1322:1323
+      - ${APP_HOST_PORT}:${APP_PORT}
     volumes:
       - .:/app
     depends_on:
@@ -20,7 +20,7 @@ services:
       POSTGRES_PASSWORD: $DB_PASSWORD
       POSTGRES_DB: $DB_NAME
     ports:
-      - ${HOST_PORT}:${DB_PORT}
+      - ${DB_HOST_PORT}:${DB_PORT}
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
