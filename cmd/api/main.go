@@ -6,9 +6,11 @@ import (
 
 	"go-practice/internal/config"
 	"go-practice/internal/database"
+	"go-practice/internal/models/migrations"
 	"go-practice/internal/router"
 
 	"github.com/labstack/echo/v4"
+	"github.com/go-gormigrate/gormigrate/v2"
 )
 
 func main() {
@@ -25,7 +27,16 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(db)
+	log.Println("Database connection established")
+
+	// migration
+	if err := database.Migrate(db, []*gormigrate.Migration{
+		migrations.UsersTable(),
+	}); err != nil {
+		log.Fatal(err)
+	}
+
+	log.Println("Migration completed")
 
 	// initialize echo
 	e := echo.New()
