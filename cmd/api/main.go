@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"go-practice/config"
+	"go-practice/internal/config"
+	"go-practice/internal/database"
 )
 
 func main() {
@@ -16,5 +17,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(cfg)
+	db, err := database.InitializeDB(&cfg.Database)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(db)
 }

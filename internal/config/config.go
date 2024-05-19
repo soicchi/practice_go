@@ -4,11 +4,11 @@ import (
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
-type config struct {
-	Database database
+type Config struct {
+	Database Database
 }
 
-type database struct {
+type Database struct {
 	Host     string `env:"DB_HOST" env-default:"db"`
 	User     string `env:"DB_USER" env-default:"postgres"`
 	Name     string `env:"DB_NAME" env-default:"postgres"`
@@ -17,8 +17,8 @@ type database struct {
 	SSLMode  string `env:"DB_SSLMODE" env-default:"disable"`
 }
 
-func NewConfig() (*config, error) {
-	var cfg config
+func NewConfig() (*Config, error) {
+	var cfg Config
 
 	if err := cleanenv.ReadEnv(&cfg); err != nil {
 		return nil, err
