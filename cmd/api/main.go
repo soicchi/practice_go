@@ -6,6 +6,8 @@ import (
 
 	"go-practice/internal/config"
 	"go-practice/internal/database"
+	"go-practice/internal/router"
+
 	"github.com/labstack/echo/v4"
 )
 
@@ -27,9 +29,7 @@ func main() {
 
 	// initialize echo
 	e := echo.New()
-	e.GET("/", func(c echo.Context) error {
-		return c.String(200, "Hello, World!")
-	})
+	router.SetupRouter(e)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
