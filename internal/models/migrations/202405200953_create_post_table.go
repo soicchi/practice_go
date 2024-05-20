@@ -11,7 +11,7 @@ func PostsTable() *gormigrate.Migration {
 		Migrate: func(tx *gorm.DB) error {
 			type post struct {
 				gorm.Model
-				Title string `gorm:"size:255;not null"`
+				Title  string `gorm:"size:255;not null"`
 				UserID uint
 			}
 			if err := tx.Migrator().CreateTable(&post{}); err != nil {

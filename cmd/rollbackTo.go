@@ -13,7 +13,7 @@ import (
 var rollbackToCmd = &cobra.Command{
 	Use:   "rollbackTo",
 	Short: "Rollback to a specific migration",
-	Long: `Given a migration ID, rollbackTo will revert all migrations up to and including the migration with the provided ID.`,
+	Long:  `Given a migration ID, rollbackTo will revert all migrations up to and including the migration with the provided ID.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("rollbackTo called")
 

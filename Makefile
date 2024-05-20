@@ -9,3 +9,12 @@ go_tidy:
 
 cobra_add:
 	docker compose run --rm api cobra-cli add ${name}
+
+migrate:
+	docker compose run --rm api go run main.go migrate
+
+rollback_last:
+	docker compose run --rm api go run main.go rollbackLast
+
+rollback_to:
+	docker compose run --rm api go run main.go rollbackTo ${version}
