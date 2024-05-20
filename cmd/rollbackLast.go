@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 
 	"go-practice/internal/config"
 	"go-practice/internal/database"
@@ -16,11 +17,21 @@ var rollbackLastCmd = &cobra.Command{
 	Long:  "If you want to rollback the last migration, you can use this command.",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("rollbackLast called")
-		cfg, _ := config.NewConfig()
-		db, _ := database.ConnectDB(&cfg.Database)
-		database.RollbackLast(db)
 
-		fmt.Println("Rollback last migration")
+		cfg, err := config.NewConfig()
+		if err != nil {
+			log.Fatalf("failed to load config: %v", err)
+		}
+		db, err := database.ConnectDB(&cfg.Database)
+		if err != nil {
+			log.Fatalf("failed to connect to database: %v", err)
+		}
+
+		if err := database.RollbackLast(db); err != nil {
+			log.Fatalf("failed to rollback last migration: %v", err)
+		}
+
+		log.Println("Rollback last migration")
 	},
 }
 

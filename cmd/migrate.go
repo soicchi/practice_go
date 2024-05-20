@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 
 	"go-practice/internal/config"
 	"go-practice/internal/database"
@@ -16,9 +17,21 @@ var migrateCmd = &cobra.Command{
 	Long:  "If you want to migrate the database schema to the latest version, you can use this command.",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("migrate called")
-		cfg, _ := config.NewConfig()
-		db, _ := database.ConnectDB(&cfg.Database)
-		database.Migrate(db)
+
+		cfg, err := config.NewConfig()
+		if err != nil {
+			log.Fatalf("failed to load config: %v", err)
+		}
+		db, err := database.ConnectDB(&cfg.Database)
+		if err != nil {
+			log.Fatalf("failed to connect to database: %v", err)
+		}
+
+		if err := database.Migrate(db); err != nil {
+			log.Fatalf("failed to migrate database: %v", err)
+		}
+
+		log.Println("Migrate database schema")
 	},
 }
 

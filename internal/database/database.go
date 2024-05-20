@@ -42,6 +42,15 @@ func RollbackLast(db *gorm.DB) error {
 	return nil
 }
 
+func RollbackTo(db *gorm.DB, migrationID string) error {
+	m := gormigrate.New(db, gormigrate.DefaultOptions, migrationsList())
+	if err := m.RollbackTo(migrationID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func createDSN(cfg *config.Database) string {
 	return fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s sslmode=%s",
