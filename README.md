@@ -25,10 +25,14 @@ make cobra_add name="comamnd name"
 # Migration
 make migrate
 
+# Migrate to a specific version
+# ex) make migrate_to version=202405201555
+make migrate_to version="migration id"
+
 # rollback last migration
 make rollback_last
 
 # rollback to specific migration version
 # ex) make rollback_to version=202405201334
-make rollback_to version="migration_id"
+make rollback_to version="migration id"
 ```

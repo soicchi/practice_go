@@ -33,6 +33,15 @@ func Migrate(db *gorm.DB) error {
 	return nil
 }
 
+func MigrateTo(db *gorm.DB, migrationID string) error {
+	m := gormigrate.New(db, gormigrate.DefaultOptions, migrationsList())
+	if err := m.MigrateTo(migrationID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func RollbackLast(db *gorm.DB) error {
 	m := gormigrate.New(db, gormigrate.DefaultOptions, migrationsList())
 	if err := m.RollbackLast(); err != nil {

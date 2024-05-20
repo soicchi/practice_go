@@ -13,6 +13,9 @@ cobra_add:
 migrate:
 	docker compose run --rm api go run main.go migrate
 
+migrate_to:
+	docker compose run --rm api go run main.go migrateTo ${version}
+
 rollback_last:
 	docker compose run --rm api go run main.go rollbackLast
 

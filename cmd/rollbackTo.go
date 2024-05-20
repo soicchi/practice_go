@@ -30,7 +30,7 @@ var rollbackToCmd = &cobra.Command{
 			log.Fatalf("failed to rollback to migration: %v", err)
 		}
 
-		log.Println("Rollback to migration")
+		log.Printf("Rollback to version: %s", args[0])
 	},
 }
 
