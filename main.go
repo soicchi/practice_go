@@ -1,20 +1,23 @@
 package main
 
 import (
-	"fmt"
 	"log"
+	"os"
 
+	"go-practice/cmd"
 	"go-practice/internal/config"
 	"go-practice/internal/database"
-	"go-practice/internal/models/migrations"
 	"go-practice/internal/router"
 
 	"github.com/labstack/echo/v4"
-	"github.com/go-gormigrate/gormigrate/v2"
 )
 
 func main() {
-	fmt.Println("Hello, World!")
+	// command line
+	if len(os.Args) > 1 {
+		cmd.Execute()
+		return
+	}
 
 	// config setup
 	cfg, err := config.NewConfig()
@@ -22,21 +25,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	db, err := database.InitializeDB(&cfg.Database)
+	db, err := database.ConnectDB(&cfg.Database)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	log.Println("Database connection established")
-
-	// migration
-	if err := database.Migrate(db, []*gormigrate.Migration{
-		migrations.UsersTable(),
-	}); err != nil {
-		log.Fatal(err)
-	}
-
-	log.Println("Migration completed")
+	log.Println(db)
 
 	// initialize echo
 	e := echo.New()
