@@ -13,7 +13,7 @@ import (
 var rollbackLastCmd = &cobra.Command{
 	Use:   "rollbackLast",
 	Short: "Rollback the last migration.",
-	Long: "If you want to rollback the last migration, you can use this command.",
+	Long:  "If you want to rollback the last migration, you can use this command.",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("rollbackLast called")
 		cfg, _ := config.NewConfig()

@@ -52,5 +52,6 @@ func createDSN(cfg *config.Database) string {
 func migrationsList() []*gormigrate.Migration {
 	return []*gormigrate.Migration{
 		migrations.UsersTable(),
+		migrations.PostsTable(),
 	}
 }
