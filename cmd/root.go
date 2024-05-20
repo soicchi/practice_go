@@ -11,7 +11,7 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "root",
 	Short: "Root command",
-	Long: `Root command is the entry point of the all command.`,
+	Long:  `Root command is the entry point of the all command.`,
 }
 
 func Execute() {
